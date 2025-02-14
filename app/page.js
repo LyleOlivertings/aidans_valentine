@@ -9,6 +9,7 @@ export default function PrankValentine() {
   const [answered, setAnswered] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [noCount, setNoCount] = useState(0);
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
   const [width, height] = useWindowSize();
 
   const funnyReasons = [
@@ -24,6 +25,15 @@ export default function PrankValentine() {
 
   const handleNoClick = () => {
     setNoCount(prev => Math.min(prev + 1, funnyReasons.length - 1));
+  };
+
+  const handleTouchMove = (e) => {
+    // Get touch position
+    const touch = e.touches[0];
+    setButtonPosition({
+      x: touch.clientX - 50, // Offset for the button width
+      y: touch.clientY - 25, // Offset for the button height
+    });
   };
 
   return (
@@ -56,13 +66,14 @@ export default function PrankValentine() {
               <button
                 onClick={handleNoClick}
                 onTouchStart={handleNoClick}
+                onTouchMove={handleTouchMove}  // Track touch move
                 className={`bg-red-500 text-white text-xl px-8 py-4 rounded-full shadow-lg 
                   transform transition-all duration-200 absolute top-0 ${
                     noCount > 0 ? 'opacity-0' : 'opacity-100'
                   }`}
                 style={{
-                  left: `${noCount * 10}%`,
-                  width: `${100 - noCount * 5}%`,
+                  left: `${buttonPosition.x}px`, // Move button dynamically
+                  top: `${buttonPosition.y}px`, // Move button dynamically
                   pointerEvents: noCount > 0 ? 'none' : 'auto',
                 }}
               >
