@@ -74,7 +74,7 @@ export default function PrankValentine() {
           <div className="animate-bounce">
             <div className="bg-white p-6 rounded-2xl shadow-xl">
               <img 
-                src="/surprise-meme.gif"
+                src="/meme.jpg"
                 alt="Prank Reveal"
                 className="w-full h-64 object-cover rounded-xl mb-4"
               />
